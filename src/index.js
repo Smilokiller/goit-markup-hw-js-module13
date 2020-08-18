@@ -21,7 +21,6 @@ const galleryItems = function() {
 
 
 const addItem = function(list) {
-    window.scrollBy(0, -125);
     const templateItems = templateCountries(list.hits);
     gallery.insertAdjacentHTML('beforeend', templateItems);
 
