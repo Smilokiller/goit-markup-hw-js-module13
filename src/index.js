@@ -2,6 +2,7 @@ import templateCountries from "./templates/imagesHbs.hbs";
 import './styles.css';
 import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/PNotify.css';
+
 const gallery = document.querySelector('.gallery');
 const keyWord = document.querySelector('.keyWord');
 const loadMore = document.querySelector('.load')
@@ -20,6 +21,7 @@ const galleryItems = function() {
 
 
 const addItem = function(list) {
+    window.scrollBy(0, -125);
     const templateItems = templateCountries(list.hits);
     gallery.insertAdjacentHTML('beforeend', templateItems);
 
