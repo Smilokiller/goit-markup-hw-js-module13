@@ -42,3 +42,11 @@ img {
     display: block;
     margin: 0 auto;
 }
+
+.load__more {
+    display: none;
+}
+
+.is__active {
+    display: inherit;
+}

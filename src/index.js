@@ -5,25 +5,39 @@ import '@pnotify/core/dist/PNotify.css';
 
 const gallery = document.querySelector('.gallery');
 const keyWord = document.querySelector('.keyWord');
-const loadMore = document.querySelector('.load')
+const enterKey = document.querySelector('.load')
+const loadMore = document.querySelector('.load__more')
 
+console.log(screen.height)
 
 let keyValue;
 let page = 0;
 const galleryItems = function() {
     keyValue = keyWord.value;
     page += 1;
-    loadMore.textContent = 'Load more';
     addImages(keyValue, page)
         .then((list) => list.json())
         .then((list) => addItem(list));
+    loadMore.classList.add('is__active')
 }
-
 
 const addItem = function(list) {
     const templateItems = templateCountries(list.hits);
     gallery.insertAdjacentHTML('beforeend', templateItems);
+}
 
+const addNewItems = function() {
+    galleryItems()
+    screenScroll()
+}
+
+const screenScroll = function() {
+    const sctrrenTime = setTimeout(() => {
+        scrollBy({
+            top: (screen.height - 250),
+            behavior: "smooth"
+        });
+    }, 100);
 }
 
 const addImages = function(keyWord, page) {
@@ -32,4 +46,5 @@ const addImages = function(keyWord, page) {
     return find;
 };
 
-loadMore.addEventListener('click', galleryItems)
+enterKey.addEventListener('click', galleryItems);
+loadMore.addEventListener('click', addNewItems);
