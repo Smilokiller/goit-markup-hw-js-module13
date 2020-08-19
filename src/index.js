@@ -13,18 +13,6 @@ console.log(screen.height)
 let keyValue;
 let page = 0;
 
-const galleryItems = function() {
-    keyValue = keyWord.value;
-    page += 1;
-    callImage()
-}
-const callImage = function() {
-    addImages(keyValue, page)
-        .then((list) => list.json())
-        .then((list) => addItem(list));
-    loadMore.classList.add('is__active')
-}
-
 const addItem = function(list) {
     const templateItems = templateCountries(list.hits);
     gallery.insertAdjacentHTML('beforeend', templateItems);
@@ -41,17 +29,22 @@ const screenScroll = function() {
     }, 100);
 }
 
-const addImages = function(keyWord, page) {
+const addImages = function() {
+    keyValue = keyWord.value;
+    page += 1;
+    loadMore.classList.add('is__active');
     const find = fetch(`
-        https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${keyWord}&page=${page}&per_page=12&key=17937639-afdfa4080eb94060ee59a5ab1`)
+        https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${keyValue}&page=${page}&per_page=12&key=17937639-afdfa4080eb94060ee59a5ab1`)
+        .then((list) => list.json())
+        .then((list) => addItem(list));
     return find;
 };
 
 
 const addNewItems = function() {
-    galleryItems()
+    addImages()
     screenScroll()
 }
 
-enterKey.addEventListener('click', galleryItems);
+enterKey.addEventListener('click', addImages);
 loadMore.addEventListener('click', addNewItems);
